@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .message { padding: 20px; margin: 20px 0; border-radius: 5px; }
+    .admin-message { background-color: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+    .user-message { background-color: #ffffffff; color: #000000ff; }
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>E:/Desktop/Julieka/Julieka/src/Controller/DashboardController.php</code></li>
-        <li>Your template at <code>E:/Desktop/Julieka/Julieka/templates/dashboard/index.html.twig</code></li>
-    </ul>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="message admin-message">
+            You are logged in as Admin. You have full access.
+        </div>
+    {% elseif is_granted('ROLE_USER') %}
+        <div class="message user-message">
+            You are logged in as Regular User. Limited access granted.
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
